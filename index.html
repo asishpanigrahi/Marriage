@@ -18,7 +18,6 @@
             position: relative;
         }
 
-        /* Animated Particle Background */
         #particles {
             position: absolute;
             top: 0;
@@ -30,11 +29,11 @@
 
         .particle {
             position: absolute;
-            width: 10px;
-            height: 10px;
-            background: rgba(255, 255, 255, 0.7);
+            width: 12px;
+            height: 12px;
+            background: rgba(255, 255, 255, 0.8);
             border-radius: 50%;
-            animation: floatParticle 10s infinite ease-in-out;
+            animation: floatParticle 8s infinite ease-in-out;
         }
 
         .container {
@@ -227,11 +226,11 @@
     <script>
         // Particle Animation
         const particlesContainer = document.getElementById('particles');
-        for (let i = 0; i < 20; i++) {
+        for (let i = 0; i < 25; i++) {
             const particle = document.createElement('div');
             particle.className = 'particle';
             particle.style.left = `${Math.random() * 100}%`;
-            particle.style.animationDelay = `${Math.random() * 10}s`;
+            particle.style.animationDelay = `${Math.random() * 8}s`;
             particlesContainer.appendChild(particle);
         }
 
@@ -262,62 +261,234 @@
         document.getElementById('downloadBtn').addEventListener('click', function() {
             const invitationContent = `
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Dinesh & Sargam Wedding Invitation</title>
     <style>
         body {
             font-family: 'Playfair Display', serif;
             background: linear-gradient(135deg, #f5e1e6, #f8bbd0, #d81b60);
             margin: 0;
-            padding: 20px;
+            padding: 0;
             display: flex;
             justify-content: center;
             align-items: center;
             min-height: 100vh;
+            overflow: hidden;
+            position: relative;
         }
-        .card {
-            background: rgba(255, 255, 255, 0.95);
-            padding: 60px;
-            border-radius: 30px;
-            box-shadow: 0 20px 50px rgba(0,0,0,0.3);
-            max-width: 550px;
+
+        #particles {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+        }
+
+        .particle {
+            position: absolute;
+            width: 12px;
+            height: 12px;
+            background: rgba(255, 255, 255, 0.8);
+            border-radius: 50%;
+            animation: floatParticle 8s infinite ease-in-out;
+        }
+
+        .container {
             text-align: center;
-            border: 4px solid #e91e63;
+            padding: 70px;
+            margin: 30px;
+            background: rgba(255, 255, 255, 0.9);
+            border-radius: 35px;
+            box-shadow: 0 25px 60px rgba(0, 0, 0, 0.3);
+            max-width: 850px;
+            position: relative;
+            z-index: 1;
+            animation: floatIn 2s ease-out;
         }
-        h2 {
+
+        h1 {
             color: #c2185b;
-            font-size: 3.5em;
-            margin-bottom: 30px;
+            font-size: 5em;
+            margin-bottom: 40px;
+            text-shadow: 4px 4px 10px rgba(0, 0, 0, 0.2);
+            animation: glowText 3s infinite;
         }
-        .heart {
-            color: #e91e63;
-            font-size: 1.8em;
-        }
-        p {
+
+        .countdown {
             font-family: 'Montserrat', sans-serif;
+            font-size: 1.8em;
             color: #333;
-            font-size: 1.4em;
-            margin: 20px 0;
+            margin: 40px 0;
+            background: rgba(255, 245, 247, 0.9);
+            padding: 25px;
+            border-radius: 20px;
+            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.1);
+            animation: slideUpFade 1.5s ease-out;
         }
-        .highlight {
+
+        .timer {
+            font-size: 3em;
             color: #e91e63;
             font-weight: bold;
+            animation: pulseGlow 2s infinite;
+        }
+
+        .cartoon-container {
+            display: flex;
+            justify-content: center;
+            gap: 60px;
+            margin: 60px 0;
+            perspective: 1000px;
+        }
+
+        .cartoon {
+            width: 220px;
+            height: 220px;
+            background: linear-gradient(135deg, #f06292, #fce4ec);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 2em;
+            color: #fff;
+            text-shadow: 3px 3px 6px rgba(0, 0, 0, 0.3);
+            transition: all 0.5s ease;
+            animation: spinIn 2s ease-out;
+            border: 3px solid #fff;
+        }
+
+        .cartoon:hover {
+            transform: scale(1.2) rotateY(15deg);
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.3);
+        }
+
+        .invitation {
+            font-family: 'Montserrat', sans-serif;
+            margin: 50px 0;
+            padding: 40px;
+            background: linear-gradient(135deg, #fce4ec, #f5e1e6);
+            border-radius: 25px;
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.2);
+            animation: slideInRight 1.5s ease-out;
+            border: 3px dashed #e91e63;
+        }
+
+        .invitation h2 {
+            color: #c2185b;
+            font-family: 'Playfair Display', serif;
+            font-size: 3em;
+            margin-bottom: 25px;
+        }
+
+        .invitation p {
+            font-size: 1.3em;
+            color: #444;
+        }
+
+        /* Animations */
+        @keyframes floatParticle {
+            0% { transform: translateY(100vh) scale(0.5); opacity: 0; }
+            50% { opacity: 1; }
+            100% { transform: translateY(-100vh) scale(1); opacity: 0; }
+        }
+
+        @keyframes floatIn {
+            from { transform: translateY(100px) scale(0.9); opacity: 0; }
+            to { transform: translateY(0) scale(1); opacity: 1; }
+        }
+
+        @keyframes glowText {
+            0% { text-shadow: 4px 4px 10px rgba(0, 0, 0, 0.2); }
+            50% { text-shadow: 4px 4px 20px rgba(233, 30, 99, 0.5); }
+            100% { text-shadow: 4px 4px 10px rgba(0, 0, 0, 0.2); }
+        }
+
+        @keyframes slideUpFade {
+            from { transform: translateY(50px); opacity: 0; }
+            to { transform: translateY(0); opacity: 1; }
+        }
+
+        @keyframes pulseGlow {
+            0% { transform: scale(1); text-shadow: 0 0 5px rgba(233, 30, 99, 0.5); }
+            50% { transform: scale(1.05); text-shadow: 0 0 20px rgba(233, 30, 99, 0.8); }
+            100% { transform: scale(1); text-shadow: 0 0 5px rgba(233, 30, 99, 0.5); }
+        }
+
+        @keyframes spinIn {
+            from { transform: rotateY(90deg) scale(0.5); opacity: 0; }
+            to { transform: rotateY(0) scale(1); opacity: 1; }
+        }
+
+        @keyframes slideInRight {
+            from { transform: translateX(100px); opacity: 0; }
+            to { transform: translateX(0); opacity: 1; }
         }
     </style>
     <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700&family=Montserrat:wght@400;600&display=swap" rel="stylesheet">
 </head>
 <body>
-    <div class="card">
-        <h2>Dinesh <span class="heart">💞</span> Sargam</h2>
-        <p>We warmly invite you to witness our</p>
-        <p><span class="highlight">Wedding Ceremony</span><br>
-        29 April 2025, 10:00 PM</p>
-        <p><span class="highlight">Reception</span><br>
-        02 May 2025, 8:00 PM onwards<br>
-        Panigrahi House, Bellagam, Ganjam, Odisha</p>
-        <p>Your presence will make our day unforgettable!</p>
+    <div id="particles"></div>
+    <div class="container">
+        <h1>Dinesh 💞 Sargam</h1>
+        <div class="countdown">
+            <p>Counting down to our enchanted day:</p>
+            <div class="timer" id="countdown"></div>
+        </div>
+
+        <div class="cartoon-container">
+            <div class="cartoon">👨 Dinesh</div>
+            <div class="cartoon">👰 Sargam</div>
+        </div>
+
+        <div class="invitation">
+            <h2>Wedding Invitation</h2>
+            <p><strong>Wedding Ceremony</strong><br>
+            29 April 2025, 10:00 PM</p>
+            <p><strong>Reception</strong><br>
+            02 May 2025, 8:00 PM onwards<br>
+            Panigrahi House, Bellagam, Ganjam, Odisha</p>
+        </div>
     </div>
+
+    <script>
+        // Particle Animation
+        const particlesContainer = document.getElementById('particles');
+        for (let i = 0; i < 25; i++) {
+            const particle = document.createElement('div');
+            particle.className = 'particle';
+            particle.style.left = \`\${Math.random() * 100}%\`;
+            particle.style.animationDelay = \`\${Math.random() * 8}s\`;
+            particlesContainer.appendChild(particle);
+        }
+
+        // Countdown Timer
+        const weddingDate = new Date('2025-04-29T22:00:00');
+        
+        function updateCountdown() {
+            const now = new Date();
+            const difference = weddingDate - now;
+
+            const days = Math.floor(difference / (1000 * 60 * 60 * 24));
+            const hours = Math.floor((difference % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+            const minutes = Math.floor((difference % (1000 * 60 * 60)) / (1000 * 60));
+            const seconds = Math.floor((difference % (1000 * 60)) / 1000);
+
+            document.getElementById('countdown').innerHTML = 
+                \`\${days}d \${hours}h \${minutes}m \${seconds}s\`;
+
+            if (difference < 0) {
+                document.getElementById('countdown').innerHTML = "Our love story begins!";
+            }
+        }
+
+        setInterval(updateCountdown, 1000);
+        updateCountdown();
+    </script>
 </body>
 </html>`;
 

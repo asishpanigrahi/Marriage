@@ -5,7 +5,6 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Dinesh & Sargam Wedding</title>
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet">
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css" rel="stylesheet">
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Dancing+Script:wght@600;700&family=Montserrat:wght@300;400;500;600&display=swap');
         
@@ -252,27 +251,6 @@
             position: relative;
         }
         
-        .invitation-card::before, .invitation-card::after {
-            content: '';
-            position: absolute;
-            width: 120px;
-            height: 120px;
-            background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' width='24' height='24'%3E%3Cpath fill='none' d='M0 0h24v24H0z'/%3E%3Cpath d='M12 22C6.477 22 2 17.523 2 12S6.477 2 12 2s10 4.477 10 10-4.477 10-10 10zm0-2a8 8 0 1 0 0-16 8 8 0 0 0 0 16zm-5-8h2a3 3 0 0 0 6 0h2a5 5 0 0 1-10 0z' fill='rgba(210,63,87,0.2)'/%3E%3C/svg%3E");
-            background-repeat: repeat;
-            z-index: -1;
-            opacity: 0.5;
-        }
-        
-        .invitation-card::before {
-            top: -30px;
-            left: -30px;
-        }
-        
-        .invitation-card::after {
-            bottom: -30px;
-            right: -30px;
-        }
-        
         .invitation-title {
             font-size: 2.5em;
             margin-bottom: 30px;
@@ -355,28 +333,17 @@
             color: var(--primary-color);
             font-size: 1.5em;
         }
-        
-        .animate-item {
-            opacity: 0;
-            transform: translateY(20px);
-            transition: opacity 0.6s, transform 0.6s;
-        }
-        
-        .animate-visible {
-            opacity: 1;
-            transform: translateY(0);
-        }
     </style>
 </head>
 <body>
     <div class="page-wrapper">
-        <header class="animate-item">
+        <header>
             <h1>Dinesh(Bapi) <span class="hearts">💞</span> Sargam(Khusi)</h1>
             <p>are getting married!</p>
         </header>
         
         <div class="container">
-            <div class="card animate-item">
+            <div class="card">
                 <div class="card-content">
                     <div class="countdown">
                         <h2 class="countdown-title">Counting down to special day</h2>
@@ -414,7 +381,7 @@
                 </div>
             </div>
             
-            <div class="card animate-item">
+            <div class="card">
                 <div class="card-content details">
                     <div class="detail-item">
                         <i class="fas fa-ring"></i>
@@ -444,11 +411,11 @@
             </div>
         </div>
         
-        <div class="divider animate-item">
+        <div class="divider">
             <span>❤</span>
         </div>
         
-        <div class="invitation-card animate-item">
+        <div class="invitation-card">
             <h2 class="invitation-title">You're Invited</h2>
             <p class="invitation-message">Join us as we celebrate our love and the beginning of our new life together. Your presence will make our special day even more memorable.</p>
             
@@ -459,7 +426,7 @@
             </div>
         </div>
         
-        <footer class="footer animate-item">
+        <footer class="footer">
             <p>&copy; 2025 Dinesh & Sargam Wedding</p>
             <p>We can't wait to celebrate with you!</p>
         </footer>
@@ -494,28 +461,6 @@
 
         setInterval(updateCountdown, 1000);
         updateCountdown();
-
-        // Animation on scroll
-        document.addEventListener('DOMContentLoaded', function() {
-            const animateItems = document.querySelectorAll('.animate-item');
-            
-            function checkIfInView() {
-                animateItems.forEach(item => {
-                    const rect = item.getBoundingClientRect();
-                    const windowHeight = window.innerHeight || document.documentElement.clientHeight;
-                    
-                    if (rect.top <= windowHeight * 0.8) {
-                        item.classList.add('animate-visible');
-                    }
-                });
-            }
-            
-            window.addEventListener('scroll', checkIfInView);
-            window.addEventListener('resize', checkIfInView);
-            
-            // Initial check
-            setTimeout(checkIfInView, 100);
-        });
 
         // Download Invitation
         document.getElementById('downloadInvitation').addEventListener('click', function(e) {
@@ -610,7 +555,6 @@
     </style>
 </head>
 <body>
-<html>
     <div class="invitation-card">
         <h1>Dinesh(Bapi) & Sargam(Khusi)</h1>
         <p class="hearts">❤ ❤ ❤</p>
@@ -632,4 +576,30 @@
             </div>
         </div>
         
-        <p>Your presence will make our special day even
+        <p>Your presence will make our special day even more meaningful.</p>
+        
+        <div class="footer">
+            <p>With love,</p>
+            <p>Dinesh & Sargam</p>
+        </div>
+    </div>
+</body>
+</html>
+            `;
+            
+            // Create a Blob containing the HTML content
+            const blob = new Blob([invitationContent], {type: 'text/html'});
+            
+            // Create a link element
+            const link = document.createElement('a');
+            link.href = URL.createObjectURL(blob);
+            link.download = 'Wedding_Invitation_Dinesh_Sargam.html';
+            
+            // Append the link to the body, click it, and remove it
+            document.body.appendChild(link);
+            link.click();
+            document.body.removeChild(link);
+        });
+    </script>
+</body>
+</html>
